@@ -90,6 +90,25 @@ void display_stacks(int n, int disks[], int n_disks) {
     printf("\n");
 }
 
+void drawPyramidScheme(int A[], int n, int drawingSize){
+    drawingSize /= n+1;
+    for(int i = 0; i < n; i++){
+        printf("%*d", drawingSize, A[i]);
+    }
+    printf("\n");
+}
+void pyramidScheme(int A[], int n, int drawingSize){
+    if (n == 0){
+        return;
+    }
+    int a[n-1];
+    for(int i = 0; i < n-1; i++){
+        a[i] = A[i] + A[i+1];
+    }
+    pyramidScheme(a, n-1, drawingSize);
+    drawPyramidScheme(A, n, drawingSize);
+}
+
 int main(){
     /**
      * recursive algo
@@ -100,8 +119,8 @@ int main(){
     if (n > 0) res = RecursiveAlgo(str, 0, n-1);
     printf("%s\n", res?"true":"false");
     printRec(20);
-    printf("\n%d", 1%3);
-    int n_disks = 8;
+    printf("\n");
+    /*int n_disks = 8;
     int disks[n_disks];
     for (int i = 0; i < n_disks; i++) {
         disks[i] = i+1;
@@ -113,7 +132,9 @@ int main(){
 
     if (count >= 213) {
         display_stacks(2*n_disks-1, disks, n_disks);
-    }
+    }*/
 
+    int A[5] = {5,4,6,1,3};
+    pyramidScheme(A, 5, 25);
 
 }
