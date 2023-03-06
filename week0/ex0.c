@@ -14,6 +14,7 @@ void bubbleSort(int arr[], int n)
                 arr[j + 1] = replace;
             }
 }
+
 int returnSecondLargest(int arr[], int n){
 
     for(int i = n-1; i >= 0; i--){
@@ -22,13 +23,24 @@ int returnSecondLargest(int arr[], int n){
     return arr[n-1];
 }
 
-// Driver program to test above functions
+int straightForwardFunction(int arr[], int n){
+    int largest = arr[0];
+    int secondLargest = arr[1];
+    for(int i = 0; i < n; i++){
+        if(arr[i] > largest){
+            secondLargest = largest;
+            largest = arr[i];
+        }
+    }
+    return secondLargest;
+}
+
 int main()
 {
-    int arr[] = { 5, 1, 4, 2, 8 };
-    int n = sizeof(arr) / sizeof(arr[0]);
+    int arr[] = { 6,5,4,3,2,1};
+    int n = sizeof(arr) / sizeof(arr[0]); // will return the array size, subtract 1 from it to use it
     bubbleSort(arr, n);
-    int x = returnSecondLargest(arr, n);
-    printf("%d", x);
+    printf("%d\n", returnSecondLargest(arr, n));
+    printf("%d", straightForwardFunction(arr, n));
     return 0;
 }

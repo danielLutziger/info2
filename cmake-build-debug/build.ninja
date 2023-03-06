@@ -58,6 +58,12 @@ build CMakeFiles/test.dir/week0/ex0.c.o: C_COMPILER__test_Debug /Users/daniellut
   OBJECT_DIR = CMakeFiles/test.dir
   OBJECT_FILE_DIR = CMakeFiles/test.dir/week0
 
+build CMakeFiles/test.dir/week0/ex1.c.o: C_COMPILER__test_Debug /Users/daniellutziger/CLionProjects/Info2/week0/ex1.c || cmake_object_order_depends_target_test
+  DEP_FILE = CMakeFiles/test.dir/week0/ex1.c.o.d
+  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk -fcolor-diagnostics -std=gnu11
+  OBJECT_DIR = CMakeFiles/test.dir
+  OBJECT_FILE_DIR = CMakeFiles/test.dir/week0
+
 
 # =============================================================================
 # Link build statements for STATIC_LIBRARY target test
@@ -66,7 +72,7 @@ build CMakeFiles/test.dir/week0/ex0.c.o: C_COMPILER__test_Debug /Users/daniellut
 #############################################
 # Link the static library libtest.a
 
-build libtest.a: C_STATIC_LIBRARY_LINKER__test_Debug CMakeFiles/test.dir/library.c.o CMakeFiles/test.dir/week0/ex0.c.o
+build libtest.a: C_STATIC_LIBRARY_LINKER__test_Debug CMakeFiles/test.dir/library.c.o CMakeFiles/test.dir/week0/ex0.c.o CMakeFiles/test.dir/week0/ex1.c.o
   ARCH_FLAGS = -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.0.sdk
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/test.dir
