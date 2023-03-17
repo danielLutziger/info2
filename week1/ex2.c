@@ -18,6 +18,16 @@
  *  => the next check is if the word is not yet finished and there are still some letters left
  *     if it is not yet finished, it calls itself again with updated indices, moving the index from the
  *     beginning to +1 and the one at the end to -1
+ * => the return value of the function is true (1) if it is a palindrome and false (0) if it is not
+ *
+ *
+ *  => solution: what the algo returns, it returns true / 1
+ *  => uses recursion to check if a word is a palindrome (same spelled forward and backward)
+ *
+ *  Base cases: s == e || s != e || s < e+1 => conditions on which the algorithm ends
+ *
+ *  Complexity: linear time complexity => you go through the array once from left to right and right to left
+ *  => O(n/2)
 */
 
 int RecursiveAlgo(char c[], int s, int e){
@@ -51,7 +61,6 @@ void printRec(int n){
     printf("%d", n%4==0?n%4:n%4-1);
     printRec(n/2);
 }
-
 
 void hanoi(int n, char from, char to, char aux, int *count){
     if (n == 1){
@@ -91,11 +100,23 @@ void display_stacks(int n, int disks[], int n_disks) {
 }
 
 void drawPyramidScheme(int A[], int n, int drawingSize){
+
     drawingSize /= n+1;
     for(int i = 0; i < n; i++){
         printf("%*d", drawingSize, A[i]);
     }
     printf("\n");
+/*
+    for (int j = 0; j <= drawingSize; j++) {
+        printf(" ");
+    }
+    for (int j = 0; j < n; j++) {
+        if(A[j]<10){
+            printf("%d  ", A[j]);
+        }else{
+            printf("%d ", A[j]);
+        } }
+    printf("\n");*/
 }
 void pyramidScheme(int A[], int n, int drawingSize){
     if (n == 0){
