@@ -100,6 +100,20 @@ for i = 2 to n
 - `Mmax = (n^2+3n-4)/2`
 > has the best performance when already sorted but the worst when sorted in opposite direction
 
+# Recursion
+## Hilbert Curve
+Formula for the length of the curve in a 1x1:
+- Order 1: 2^1-1/2^1 = 1.5 (3 lines of 0.5)
+- Order 2: 2^2-1/2^2
+- Order 3: 2^3-1/2^3
+- Formula: 2^n-1/2^n
+> Distance calculation: SizeOfSquare * 2^Depth-1/2^n
+
+For a 5x5cm field and 15th depth: 163840
+
+## Sierpinski Curve
+## Sierpinski Triangle
+
 # Complexity
 ## Asymptotic Complexity
 ## 
