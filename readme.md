@@ -191,8 +191,8 @@ k > sqrt(n)
 | 1 |     0+1      | 1            |
 | 2 |     1+2      | 2            |
 | 3 |     3+3      | 3            |
-| 4 |     6+4      | ...         |
-| k | 1+2+3+4...+k | k         |
+| 4 |     6+4      | ...          |
+| k | 1+2+3+4...+k | k            |
 
 ##### Loop terminating based on multiplication
 > Always O(log(n)) (ceel value)
@@ -345,8 +345,150 @@ m = sqrt(n)
 | 5 |          2+2+3+4          |
 | m | 2+2+3+4...+m = `m(m+1)/2` |
 
-## 
-## Master theorem
+#### if-loop complexity
+```
+if(n<5) printf("something");        // 1
+else{
+    for(i = 0; i < n; i++){printf("pp");}   // n + 1
+}
+
+=> best O(1)
+=> worst O(n)
+```
+### Big O
+O(f(n)) => indicates the upper bound (do not mix it up with worst runtime!)
+### Theta
+Θ(g(n)) => indicates the average runtime 
+### Omega
+Ω(h(n)) => indicates the lower bound (do not mix this up with best runtime!)
+
+|           f(n)            |                     Big O                      |                                      Theta                                      |        Omega         |
+|:-------------------------:|:----------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------:|
+|         2n^2+3n+4         | <=2n^2+3n^2+4n^2<br/>2n^2+3n+4<=9n^2 => O(n^2) |                             1n^2 <= 9n^2 => O(n^2)                              | <=1n^2 => Omega(n^2) |
+|        n^2log(n)+n        |        <=10n^2log(n)+n => O(n^2*log(n))        |                                  O(n^2*log(n))                                  |    O(n^2*log(n))     |
+|   n!  = n*(n-1)*(n-2)..   |                     O(n^n)                     | No theta possible<br/>Smaller values are closer to omega, large closer to big O |         O(1)         |
+| log(n!) = log(1*2*3...*n) |                  O(n*log(n))                   |                           Same again. No tight bound.                           |         O(1)         |
+
+> Theta is preferred if possible. Always give the nearest value
+
+#### Properties & Asymptotic notations
+##### General Properties
+- if f(n) is O(g(n)) then a*f(n) is O(g(n))
+
+Example:
+```
+f(n) = 2n^2 + 5 is O(n^2)
+then 7*f(n) = 7*(2n^2 + 5) = 14n^2+35 => O(n^2)
+```
+> True for Big O, Omega and Theta
+
+##### Transitivity
+- if f(n) is O(g(n)) and g(n) is O(h(n)) then f(n) = O(h(n))
+```
+f(n) = n || g(n) = n^2 || h(n) = n^3
+n is O(n^2) and n^2 is O(n^3)
+then n is O(n^3)
+```
+##### Reflexivity
+- if f(n) is given then f(n) is O(f(n))
+```
+f(n) = n^2 => O(n^2)
+```
+##### Symmetric
+- if f(n) is Θ(g(n)) then g(n) is Θ(f(n))
+```
+f(n) = n^2 || g(n) = n^2 
+=> Θ(n^2)
+```
+> Only for Theta notation
+##### Transpose symmetric
+- if f(n) = O(g(n)) then g(n) is Ω(f(n))
+```
+f(n) = n || g(n) = n^2
+then n is O(n^2) and n^2 is Ω(n)
+```
+> True for big O and omega Ω
+
+```
+if f(n) = O(g(n))
+and d(n) = O(e(n))
+then f(n) + d(n) = O(max(g(n), e(n))
+
+specific example:
+f(n) = n
+d(n) = n^2
+f(n) + d(n) = n + n^2 => O(n^2)
+```
+
+```
+if f(n) = O(g(n))
+and d(n) = O(e(n))
+then f(n) * d(n) = O(g(n)*e(n))
+```
+### Function comparison and prove
+- use numbers to see which one is bigger
+  - | n | n^2 | n^3 |
+    |:-:|:---:|:---:|
+    | 5 | 25  | 125 |
+
+- apply log on each side
+  - |         n^2         |         n^3         |
+    |:-------------------:|:-------------------:|
+    | log(n^2) = 2*log(n) | log(n^3) = 3*log(n) |
+### Best, worst and average analysis
+#### Linear Search
+```
+A[] = {8,6,12,5,9,7,4,3,16,18}
+search = 7
+
+for(int i = 0; i < A.length; i++){
+    if(search == A[i]) return i;
+}
+return NILL;
+```
+> Best case: Searching key element at P1 => best case time is constant O(1), Θ(1), Ω(1) (notation in this case does not matter as the time will always be constant in the best case)
+ 
+> Worst Case: Searching element not in array => worst case O(n), Θ(n), Ω(n) (notation in this case does not matter as the time will always be polynomial in the worst case)
+ 
+> Average A(n): Searching an element somewhere in the middle => (n+1)/2 => average Θ(n)
+
+#### Binary Search Tree
+```
+Balanced BST:
+             50             | height log(n)
+           /     \          |
+          30      70        |
+         /  \    /  \       |
+       20   40  60   80     |
+
+Skewed BST (aka a list): 
+        80                  | height n
+        /                   |
+       70                   | 
+       /                    |
+      60                    |
+      /                     |
+     50                     |
+     /                      |
+    40                      |
+    /                       |
+   30                       |
+   /                        |
+  20                        |
+
+// structure for BST
+struct node* {
+    int key;
+    struct node *left, *right;
+}
+```
+> Best case: Searching root element => constant time => O(1)
+
+> Worst Case: Searching for leaf elements: </br><b>Minimum Worst case time</b> (balanced) = log(n);</br><b>Maximum worst case time</b>: n
+
+
+## Time Complexity for recursive functions: Master theorem
+
 ##
 
 # Data structures
