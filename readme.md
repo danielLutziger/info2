@@ -487,7 +487,137 @@ struct node* {
 > Worst Case: Searching for leaf elements: </br><b>Minimum Worst case time</b> (balanced) = log(n);</br><b>Maximum worst case time</b>: n
 
 
-## Time Complexity for recursive functions: Master theorem
+## Time Complexity for recursive functions - recurrence relation
+```
+void Test(int n){ 
+    if (n > 0){
+        printf("%d", n);        // 1 unit of time
+        Test(n-1);
+    }
+}
+```
+|     Tracing tree / recursive tree: Calls      |
+|:---------------------------------------------:|
+|     Test(3)<br/>print 3<br/> Call Test(2)     |
+|     Test(2)<br/>print 2<br/> Call Test(1)     |
+|     Test(1)<br/>print 1<br/> Call Test(0)     |
+|               Test(0)<br/>stop                |
+| n+1 calls<br/>n prints<br/>f(n) = n+1 => O(n) |
+
+```
+void Test(int n){               // T(n) = T(n-1)+1  
+    if (n > 0){
+        printf("%d", n);        // 1 unit of time
+        Test(n-1);              // T(n-1)
+    }
+}
+        /   1               n = 0
+T(n) = {
+        \   T(n-1) + 1      n > 0
+```
+> Substitution method
+> ```
+> T(n) = T(n-1) + 1
+> T(n-1) = T(n-2) + 1
+> Substitute T(n-1)
+> T(n) = [T(n-2)+1]+1
+> T(n) = T(n-2)+2
+> T(n) = [T(n-3)+1]+2
+> T(n) = T(n-3) + 3
+> ... continue for k times
+> T(n) = T(n-k) + k     => Assume n-k = 0
+> therefore, n = k
+> => T(n) = T(n-n) + n
+> T(n) = T(0) + n
+> T(n) = 1 + n => O(n)
+> ```
+
+#### Loop in recurrence
+```
+void Test(int n){                       // T(n)  
+    if (n > 0){                         // 1
+        for(int i = 0; i < n; i++){     // n+1
+            printf("%d", n);            // n
+        }
+        Test(n-1);                      // T(n-1)
+    }
+}
+
+Recurrence relation:
+        /   1                    n = 0
+T(n) = {
+        \   T(n-1) + 2n + 2      n > 0
+
+T(n-1) + 2n + 2 => form is complicated, take asymptotic notation
+T(n) = T(n-1) + n
+        /   1                n = 0
+T(n) = {
+        \   T(n-1) + n       n > 0
+```
+> Recursion tree
+> ```
+>    T(n)                       // n
+>    / \    
+>   n  T(n-1)                   // n-1
+>       /  \
+>     n-1   T(n-2)              // n-2
+>            / \
+>         n-2   T(n-3)... until T(0)
+> 
+> Time used: 0+1+2+3...+n-2+n-1+n = n(n+1)/2
+> T(n) = n(n+1)/2 => O(n^2)
+> ```
+
+> Backsubstitution
+> ```
+>         /   1                n = 0
+> T(n) = {
+>         \   T(n-1) + n       n > 0
+> 
+> T(n) = T(n-1) + n
+> since T(n) = T(n-1) + n
+> T(n-1) = T(n-2) + n - 1
+> T(n) = [T(n-2) + n - 1] + n
+> T(n) = T(n-2) + (n-1) + n
+> T(n-2) = T(n-3) + n - 2
+> T(n) = [T(n-3) + n - 2] + (n-1) + n
+> T(n) = T(n-3) + (n-2) + (n-1) + n 
+> T(n) = T(n-k) + (n-(k-1)) + (n-(k-2)) + (n-1) + n
+> Assume n - k = 0 => n = k
+> T(n) = T(n-n) + (n-n+1) + (n-n+2) + (n-1) + n
+> T(n) = T(0) + 1 + 2 + 3...+n-1+n 
+> T(n) = 1 + n(n+1)/2 => O(n^2)
+> ```
+#### Loop but log increase
+```
+void Test(int n){                       // T(n)  
+    if (n > 0){                         // 1
+        for(int i = 0; i < n; i=i*2){   // log(n) + 1
+            printf("%d", n);            // log(n)
+        }
+        Test(n-1);                      // T(n-1)
+    }
+}
+
+         /   1                n = 0
+ T(n) = {
+         \   T(n-1) + log(n)  n > 0
+```
+> Recursion tree
+> ```
+>    T(n)                       // log(n)
+>    / \    
+> logn  T(n-1)                  // log(n-1)
+>       /  \
+> log(n-1) T(n-2)              // log(n-2)
+>            / \
+>    log(n-2)   T(n-3)... until T(0)
+>
+> Time used: log(0)+log(1)+log(2)+log(n-1)+log(n) = n*log(n) 
+> log[n*(n-1)*(n-2)...*2*1]
+> T(n) = log(n!) => O(n*log(n))
+> ```
+### Master theorem
 
 ##
 
