@@ -357,10 +357,33 @@ else{
 ```
 ### Big O
 O(f(n)) => indicates the upper bound (do not mix it up with worst runtime!)
+-  f(n) = O(g(n)) if and only if there exist constants c > 0 and n0 > 0 such that f(n) ≤ cg(n) for n ≥ n0
+
+```
+2^n+1 = O(2^n) holds true
+    n = 1
+    c = 2
+    2^n+1 <= c*2^n
+    2^1+1 <= 2*2^1
+    4 <= 4
+
+2^2^n = O(2^n) x false
+    2^2^n grows exponentially faster than 2^n
+
+2n^1.5 = O(n log(n)) x false
+    for enough n, n^3/2 > n log n 
+```
 ### Theta
 Θ(g(n)) => indicates the average runtime 
+- f(n) = Θ(g(n)) if and only if there exist constants c1 > 0,
+  c2 > 0, and n0 > 0 such that c1g(n) ≤ f(n) ≤ c2g(n) for
+  n ≥ n0
+-  f(n) = Θ(g(n)) iff f(n) = O(g(n)) and f(n) = Ω(g(n))
+
 ### Omega
 Ω(h(n)) => indicates the lower bound (do not mix this up with best runtime!)
+- f(n) = Ω(g(n)) if and only if there exist constants c > 0
+  and n0 > 0 such that cg(n) ≤ f(n) for n ≥ n0
 
 |           f(n)            |                     Big O                      |                                      Theta                                      |        Omega         |
 |:-------------------------:|:----------------------------------------------:|:-------------------------------------------------------------------------------:|:--------------------:|
@@ -619,7 +642,34 @@ void Test(int n){                       // T(n)
 > ```
 ### Master theorem
 
-##
+## MergeSort
+```
+MergeSort(A, l, r){
+    if(l<r){                    // more than 1 element
+        m = (l+r)/2
+        MergeSort(A,l,m)        // sort left part
+        MergeSort(A,m+1,r)      // sort right part 
+        Merge(A, l, r, m)       // actual merge
+    }
+}
+
+Merge(A,l,r,m){
+    for(int i = l; i < m; i++) B[i] = A[i];         //copy elements in a reverse order into a new array B
+    for(int i = m+1; i < r; i++) B[r+m-i+1] = A[i]; // the new array will look like this: i= 1,2,3,4 | 9,8,7,6,5 = j
+    i = l; j = r;
+    
+    for(int k = l; k < r; k++){ // merge the "partially inverse array B back into A"
+        if(B[i] < B[j]){
+            A[k] = B[i];
+            i = i+1;
+        }
+        else {
+            A[k] = B[j];
+            j = j-1;
+        }
+    } 
+}
+```
 
 # Data structures
 ## 
