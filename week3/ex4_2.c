@@ -62,16 +62,97 @@ int select_kth_smallest(int A[], int n, int kth){
     return A[kth-1];
 }
 
+
+/**
+ * recurrence relation for maxSub:
+ * 2n
+ * => n
+ * O(n)
+ */
+
+int maxSub(int A[], int l, int r, int m){
+    int maxLeft = -999999;
+    int sum = 0;
+    for(int i = m; i >= l; i--){
+        sum = sum+A[i];
+        if(sum > maxLeft) {
+            maxLeft = sum;
+        }
+    }
+    int maxRight = -999999;
+    sum = 0;
+    for(int i = m+1; i <= r; i++){
+        sum= sum+A[i];
+        if(sum > maxRight) {
+            maxRight = sum ;
+        }
+    }
+    return maxLeft + maxRight;
+}
+
+/**
+ * recurrence relation for max subarray:
+ * T(n) = 2T(n/2) + merge
+ * T(n) = 2T(n/2) + n
+ *
+ * => O(n*log2(n))
+ */
+
+int maximumSubarray(int A[], int l, int r){
+    if (r == l) return A[l];
+
+    int middle = (l+r)/2;
+    int leftArraySum = maximumSubarray(A, l, middle);
+    int rightArraySum = maximumSubarray(A, middle+1, r);
+    int overlapArraySum = maxSub(A, l, r, middle);
+    if(leftArraySum > rightArraySum && leftArraySum > overlapArraySum) return leftArraySum;
+    else if(rightArraySum > leftArraySum && rightArraySum > overlapArraySum) return rightArraySum;
+    else return overlapArraySum;
+}
+/**
+ * substitution method to calculate the recurrence relation for
+ * T(n) = 2T(n-1) + c
+ *
+ * => 2,4,8,16,32...
+ * => good guess = 2^n
+ */
+int substitutionMethod(int n, int c){
+    if(n <= 1) return 1;
+    int t = 2*substitutionMethod(n-1, c) + c;
+    printf("%d\n", t);
+    return t;
+}
+
+
+/**
+ * repeated backward substitution method to calculate the recurrence relation for
+ * T(n) = 2T(n/2) + c
+ *
+ * => good guess = log(n)
+ */
+int backwardSubstitution(int n, int c){
+    if(n == 1) return 1;
+    int bwS = 2*backwardSubstitution(n/2, c)+c;
+    printf("%d\n", bwS);
+    return bwS;
+}
+
 int main(){
     int A1[] = {12, 4, 10, 8, 9, 33, 2, 18};
     int A2[] = {1,4,5,7,9,22,44,55};
     int n1 = sizeof(A1) / sizeof(A1[0]);
+
     int n2 = sizeof(A2) / sizeof(A2[0]);
 
     printf("%d", cntOcc(A1, A2, n1, n2));
     printf("\n%d", cntOccPerformance(A1, A2, n1, n2));
     printf("\n%d", select_kth_smallest(A1, n1, 3));
 
+    int A[] = {-1, 2, -4, 1, 9, -6, 7, -3, 5};
+    printf("\n%d", maximumSubarray(A, 0, 8));
+
+    substitutionMethod(12, 0);
+    backwardSubstitution(32,0);
 
     return 0;
 }

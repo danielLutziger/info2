@@ -640,8 +640,32 @@ void Test(int n){                       // T(n)
 > log[n*(n-1)*(n-2)...*2*1]
 > T(n) = log(n!) => O(n*log(n))
 > ```
-### Master theorem
 
+### Master theorem
+- Above were recurrence relations mentioned, together with substitution and tree methods. The 3rd method to find the recurrence of a (recursive ) algorithm is the master method.
+
+Recurrence relation form:
+```T(n) = aT(n/b) + f(n)```
+- a >= 1
+- b > 1
+- f(n) asymptotically positive
+
+> 3 different cases for the master theorem
+> - running time dominated by cost at the root (case 3)
+> - running time dominated by cost at the leaves (case 1)
+> - running time dominated by  throughout the tree (case 2)
+
+Solving the master theorem: compare logb(a) = f(n)
+> - Case 1: logb(a) = f(n) => O(n^logb(a))
+> - Case 2: logb(a) > f(n) => O(n^logb(a)*logb(n))
+> - Case 3: logb(a) < f(n) => O(f(n))
+
+Merge sort example:
+```         
+        /  O(1)             if n = 1
+T(n) = {
+        \  2T(n/2) + O(n)   if n > 1
+```
 ## MergeSort
 ```
 MergeSort(A, l, r){
