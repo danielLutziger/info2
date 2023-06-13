@@ -800,6 +800,91 @@ BuildHeap(A, n){
 }
 ````
 
+### Insert into Heap
+- insert at last level
+- move up level by level => log(n)
+````c
+void Insert(int A[], int n){
+    int temp, i = n;
+    temp = A[n];
+    // copy temp value from new slot and compare with parent
+    while(i > 1 && temp > A[i/2]){
+        A[i] = A[i/2];
+        i = i/2;
+    }
+    A[i] = temp;
+}
+````
+
+### Deleting from a Heap
+- only root element can be deleted
+  - place deleted element at free empty position in array (delete root element place at last element)
+- move last element from heap into root position, compare children and replace with bigger one
+- complexity: O(n*log(n))
+  - delete 1 element: log(n)
+  - delete all elements: n*log(n)
+## Priority Queue
+- Define priority for a priority queue => the larger element higher the priority
+- insert = O(1)
+- delete = O(n)
+  - check all elements for max
+  - shift all elements 
+````c
+A = [4,9,5,10,6,20,8];
+````
+> <b>Speed up a priority queue with a max heap
+> Insert and delete will take O(log(n)) time </b>
+> ```c
+> A_as_max_heap = [20,9,10,4,6,5];
+>```
+
+## QuickSort
+- idea: pivoting value and moving the i and j values
+  - So called "partitioning procedure"
+- Worst case time of quicksort: O(n^2) with a sorted list (asc or desc) 
+````c
+pivot
+|
+50, 70, 60, 90, 40, 80, 10, 20, 30  infinity
+i                                   j
+     i---------------------------j
+50, 30, 60, 90, 40, 80, 10, 20, 70 infinity
+         i..................j
+50, 30, 20, 90, 40, 80, 10, 60, 70 infinity
+             i----------j
+50, 30, 20, 10, 40, 80, 90, 60, 70 infinity // 40 < 90
+                 i------j
+50, 30, 20, 10, 40, 80, 90, 60, 70 infinity // 80 < 90
+                     i--j
+50, 30, 20, 10, 40, 80, 90, 60, 70 infinity // i will become > j
+                         j---i
+put 50 at j
+(40, 30, 20, 10), (50), (80, 90, 60, 70)
+````
+> QuickSort is recursively applied to a subset of values 
+
+### Partitioning in QuickSort
+
+````c
+int Partition(int A[], int i, int n){
+    int pivot = A[l];
+    int i = l, j = n;
+    do{
+        do{i++}while(A[i]<=pivot);
+        do{j--}while(A[j]>pivot);
+        if(i < j){
+            int t = A[i];
+            A[i] = A[j];
+            A[j] = t;
+        }
+    }while(i < j);
+    int t = A[l];
+    A[l] = A[j];
+    A[j] = t;
+    return j;
+}
+````
+
 # Data structures
 ## 
 ### Strength
