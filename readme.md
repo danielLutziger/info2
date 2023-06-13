@@ -4,14 +4,14 @@
 - Bubble sort
 # Linear search
 #### pseudo code:
-```
+```c
 LinSearch1(A,v): 
 p = NILL;
 for i = 1 t on do
     if A[i] == v then p = 1;
 return p
 ```
-```
+```c
 LinSearch2(A,v): 
 i = 1;
 while i <= n && A[i] != v {i++}
@@ -23,7 +23,7 @@ else return NIL;
 
 # Bubblesort
 #### pseudo code
-```
+```c
 BubbleSort(A):
 for i = n to 2 do
   for j = 2 to i do
@@ -37,7 +37,7 @@ for i = n to 2 do
 Implementation: week0/BubbleSort.c
 
 Working:
-```
+```c
 a = {15, 16, 12, 29, 52, 243, 234, 43, 12, 1}
 // iteration 1 
 a = {15, *12*, 16, 29, 52, 234, 43, 12, 1, *243*}
@@ -66,7 +66,7 @@ a = {1, *12*, 12, 15, 16, 29, 43, 52, 234, 243}
 
 (as the swap requires 3 moves)
 # Selection sort
-```
+```c
 SelectionSort(A)
 for i = 1 to n-1
   k = i;
@@ -82,7 +82,7 @@ for i = 1 to n-1
 > always moving but less than in bubble sort
 
 # Insertion sort
-```
+```c
 InsertionSort(A)
 for i = 2 to n 
   j = i-1
@@ -121,7 +121,7 @@ For a 5x5cm field and 15th depth: 163840
 - week1/FrequencyCountMethod.c
 ## Asymptotic complexity
 ##### Time complexity code examples
-```
+```c
 for(int i = 0; i < n; i++){     // n + 1 
     someStatement;              // n
 }
@@ -145,7 +145,7 @@ for(int i = 1; i < n; i+20){
 > As long as it is "< n" => time will be polynomial not constant
 
 ##### Loop in loop
-```
+```c
 for(i = 0; i < n; i++)          // n + 1
     for(j = 0; j < n; j++)      // n (n + 1)
         someStatement;          // n * n
@@ -153,7 +153,7 @@ for(i = 0; i < n; i++)          // n + 1
 ```
 
 ##### Loop in loop smaller first loop
-```
+```c
 for(i = 0; i < n; i++)          // n + 1
     for(j = 0; j < i; j++)      // n (n + 1)
         someStatement;          // n * n
@@ -172,7 +172,7 @@ for(i = 0; i < n; i++)          // n + 1
 | 3 | 0<br/>1<br/>2<br/>3 stop  |            3 |
 
 ##### Loop condition terminates based on outside variable
-```
+```c
 p = 0
 for(i = 1; p <= n; i++)          // 
     p = p+i;
@@ -196,7 +196,7 @@ k > sqrt(n)
 
 ##### Loop terminating based on multiplication
 > Always O(log(n)) (ceel value)
-```
+```c
 for(i = 1; i < n; i = i*2){
     statement;
 }
@@ -220,7 +220,7 @@ k = log2(n)
 
 ##### Loop terminating based on division
 > Always O(log(n)) (ceel value)
-```
+```c
 for(i = n; i >= 1; i = i/2){
     statement;
 }
@@ -243,7 +243,7 @@ k = log2(n) //base 2
 | n/2^k |
 ##### LogLog loop
 
-```
+```c
 p = 0;
 for(i = 1; i < n; i = i*2){
     p++;            // log(n)
@@ -258,7 +258,7 @@ for(j = 1; j < p; j = j*2){
 
 ##### nLog loop
 
-```
+```c
 for(i = 0; i < n; i = i++){         // n + 1
     for(j = 1; j < n; j = j*2){     // n * log(n) + 1
         statement;                  // n * log(n)
@@ -281,7 +281,7 @@ f(n) = 2n*log(n) + 2
 
 #### while loop complexity
 > same as the for loops, no biggie
-```
+```c
 i = 0;          // 1
 while (i < n){  // n + 1
     statemetn;  // n
@@ -290,7 +290,7 @@ while (i < n){  // n + 1
 f(n) = 3n + 2 => O(n)
 ```
 
-```
+```c
 a = 1;
 while (a < b){  
     statemetn;  
@@ -311,7 +311,7 @@ k = log2(b)
 | 2^3 |
 | 2^k |
 
-```
+```c
 a = n;
 while (a > b){  
     statemetn;  
@@ -319,7 +319,7 @@ while (a > b){
 }
 ```
 
-```
+```c
 i = 1
 k = 1;
 while (k < n){  
@@ -346,7 +346,7 @@ m = sqrt(n)
 | m | 2+2+3+4...+m = `m(m+1)/2` |
 
 #### if-loop complexity
-```
+```c
 if(n<5) printf("something");        // 1
 else{
     for(i = 0; i < n; i++){printf("pp");}   // n + 1
@@ -359,7 +359,7 @@ else{
 O(f(n)) => indicates the upper bound (do not mix it up with worst runtime!)
 -  f(n) = O(g(n)) if and only if there exist constants c > 0 and n0 > 0 such that f(n) ≤ cg(n) for n ≥ n0
 
-```
+```c
 2^n+1 = O(2^n) holds true
     n = 1
     c = 2
@@ -399,7 +399,7 @@ O(f(n)) => indicates the upper bound (do not mix it up with worst runtime!)
 - if f(n) is O(g(n)) then a*f(n) is O(g(n))
 
 Example:
-```
+```c
 f(n) = 2n^2 + 5 is O(n^2)
 then 7*f(n) = 7*(2n^2 + 5) = 14n^2+35 => O(n^2)
 ```
@@ -407,32 +407,32 @@ then 7*f(n) = 7*(2n^2 + 5) = 14n^2+35 => O(n^2)
 
 ##### Transitivity
 - if f(n) is O(g(n)) and g(n) is O(h(n)) then f(n) = O(h(n))
-```
+```c
 f(n) = n || g(n) = n^2 || h(n) = n^3
 n is O(n^2) and n^2 is O(n^3)
 then n is O(n^3)
 ```
 ##### Reflexivity
 - if f(n) is given then f(n) is O(f(n))
-```
+```c
 f(n) = n^2 => O(n^2)
 ```
 ##### Symmetric
 - if f(n) is Θ(g(n)) then g(n) is Θ(f(n))
-```
+```c
 f(n) = n^2 || g(n) = n^2 
 => Θ(n^2)
 ```
 > Only for Theta notation
 ##### Transpose symmetric
 - if f(n) = O(g(n)) then g(n) is Ω(f(n))
-```
+```c
 f(n) = n || g(n) = n^2
 then n is O(n^2) and n^2 is Ω(n)
 ```
 > True for big O and omega Ω
 
-```
+```c
 if f(n) = O(g(n))
 and d(n) = O(e(n))
 then f(n) + d(n) = O(max(g(n), e(n))
@@ -443,7 +443,7 @@ d(n) = n^2
 f(n) + d(n) = n + n^2 => O(n^2)
 ```
 
-```
+```c
 if f(n) = O(g(n))
 and d(n) = O(e(n))
 then f(n) * d(n) = O(g(n)*e(n))
@@ -460,7 +460,7 @@ then f(n) * d(n) = O(g(n)*e(n))
     | log(n^2) = 2*log(n) | log(n^3) = 3*log(n) |
 ### Best, worst and average analysis
 #### Linear Search
-```
+```c
 A[] = {8,6,12,5,9,7,4,3,16,18}
 search = 7
 
@@ -476,7 +476,7 @@ return NILL;
 > Average A(n): Searching an element somewhere in the middle => (n+1)/2 => average Θ(n)
 
 #### Binary Search Tree
-```
+```c
 Balanced BST:
              50             | height log(n)
            /     \          |
@@ -511,7 +511,7 @@ struct node* {
 
 
 ## Time Complexity for recursive functions - recurrence relation
-```
+```c
 void Test(int n){ 
     if (n > 0){
         printf("%d", n);        // 1 unit of time
@@ -527,7 +527,7 @@ void Test(int n){
 |               Test(0)<br/>stop                |
 | n+1 calls<br/>n prints<br/>f(n) = n+1 => O(n) |
 
-```
+```c
 void Test(int n){               // T(n) = T(n-1)+1  
     if (n > 0){
         printf("%d", n);        // 1 unit of time
@@ -539,7 +539,7 @@ T(n) = {
         \   T(n-1) + 1      n > 0
 ```
 > Substitution method
-> ```
+> ```c
 > T(n) = T(n-1) + 1
 > T(n-1) = T(n-2) + 1
 > Substitute T(n-1)
@@ -556,7 +556,7 @@ T(n) = {
 > ```
 
 #### Loop in recurrence
-```
+```c
 void Test(int n){                       // T(n)  
     if (n > 0){                         // 1
         for(int i = 0; i < n; i++){     // n+1
@@ -578,7 +578,7 @@ T(n) = {
         \   T(n-1) + n       n > 0
 ```
 > Recursion tree
-> ```
+> ```c
 >    T(n)                       // n
 >    / \    
 >   n  T(n-1)                   // n-1
@@ -592,7 +592,7 @@ T(n) = {
 > ```
 
 > Backsubstitution
-> ```
+> ```c
 >         /   1                n = 0
 > T(n) = {
 >         \   T(n-1) + n       n > 0
@@ -612,7 +612,7 @@ T(n) = {
 > T(n) = 1 + n(n+1)/2 => O(n^2)
 > ```
 #### Loop but log increase
-```
+```c
 void Test(int n){                       // T(n)  
     if (n > 0){                         // 1
         for(int i = 0; i < n; i=i*2){   // log(n) + 1
@@ -627,7 +627,7 @@ void Test(int n){                       // T(n)
          \   T(n-1) + log(n)  n > 0
 ```
 > Recursion tree
-> ```
+> ```c
 >    T(n)                       // log(n)
 >    / \    
 > logn  T(n-1)                  // log(n-1)
@@ -661,13 +661,13 @@ Solving the master theorem: compare logb(a) = f(n)
 > - Case 3: logb(a) < f(n) => O(f(n))
 
 Merge sort example:
-```         
+```         c
         /  O(1)             if n = 1
 T(n) = {
         \  2T(n/2) + O(n)   if n > 1
 ```
 ## MergeSort
-```
+```c
 MergeSort(A, l, r){
     if(l<r){                    // more than 1 element
         m = (l+r)/2
@@ -694,6 +694,111 @@ Merge(A,l,r,m){
     } 
 }
 ```
+## HeapSort
+- complexity: O(nlog(n))
+- build upon the selection sort with a smart data structure
+  - =>maintain the data structure in time
+
+> binary tree is a binary heap iff
+>   - it is a nearly complete binary tree
+>   - each node is greater than or equal to all its children: A[parent] >= A[i]
+> 
+> can be efficiently stored as an array
+
+````c
+HeapSort(A, n){
+    s = n;
+    BuildHeap(A);
+    for(int i = n; i >= 2; i--){
+        swap A[i] and A[1];
+        s = s-1;
+        Heapify(A, 1, s);
+    }
+}
+````
+
+### Algorithms for heaps and trees
+````c
+int Parent(int i){
+    return i/2;
+}
+int Left(int i){
+    return 2*i
+}
+int Right(int i){
+    return 2*i+1
+}
+````
+
+## Tree
+- Each node may have a left or a right child
+- each node has at most one parent
+- root has no parent
+- leaf has no children
+- depth/level of a node is the length from the root to the node
+  - root depth is 0
+- height is the longest path from the position to a leaf
+  - tree height = height of the root
+
+### Complete binary tree
+- all leaves have the same depth
+- all internal nodes have 2 children => requires 2^k-1 children
+- has no order of nodes
+
+### Nearly complete binary tree
+- all levels of non-maximal depth d are full (2^d nodes)
+- all the leaves with maximal depth are as far left as possible
+
+### MaxHeap
+- largest element is at root node
+  - used for sorting arrays
+  - A[parent] >= A[i]
+### MinHeap
+- Smallest element is at root node
+  - priority queues
+  - A[parent] <= A[i]
+
+### Heapify
+- heapify transforms the binary tree rooted at i into a binary tree
+- move A[i] down the heap until the heap property is satisfied  (push element down where larger element is)
+> worst case performance of heapify is O(log(n))
+> - occurs when imbalanced
+````c
+/**
+ * @s = number of elements to look at
+ */
+Heapify(A, i, s){
+    m = i;
+    l = Left(i); //2*i
+    r = Right(i); //2*i+1
+    // left element exists && is larger than parent
+    if(l <= s && A[l] > A[m]) 
+        m = l;
+    // right element exists && is larger than m
+    if(r <=s && A[r] > A[m])
+        m = r;
+    if(i != m){
+        // swap
+        int t = A[i];
+        A[i] = A[m];
+        A[m] = t;
+        Heapify(A, m, s)
+    }
+    
+}
+````
+
+### BuildHeap
+- convert an array of n elements into a heap
+- complexity of O(n) where n is the height
+
+````c
+BuildHeap(A, n){
+    for(int i = (n/2); i > 1; i--){
+        Heapify(A, i, n);
+    }
+}
+````
 
 # Data structures
 ## 
