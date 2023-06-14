@@ -841,7 +841,14 @@ A = [4,9,5,10,6,20,8];
 ## QuickSort
 - idea: pivoting value and moving the i and j values
   - So called "partitioning procedure"
-- Worst case time of quicksort: O(n^2) with a sorted list (asc or desc) 
+- Worst case time of quicksort: O(n^2) with a sorted list (asc or desc) (because of partitioning at the end / beginning)
+- Best case (partitioning in the middle) / avg case time complexity: O(n*log(n))
+- we could replace the middle element with the first and making it the pivot => this will make the best case the worst case, meaning quicksort works best on sorted lists, and worst on random lists
+- randomized quicksort: select a random element as pivot
+
+- quicksort vs selectionsort
+- selection sort: select a position and find an element for that position (selection of index)
+- quicksort: select an element and find a position for that element (selection of element: partition exchange sort, selection exchange sort, quicksort)
 ````c
 pivot
 |
