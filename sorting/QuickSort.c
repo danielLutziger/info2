@@ -36,7 +36,6 @@ void quicksort(int A[], int l, int h) {
 int main() {
     int A[] = {11, 13, 7, 12, 16, 9, 24, 5, 10, 3,50, INT_MAX};
     int n = 11;
-    int i;
 
     quicksort(A, 0, n-1);
     for(int i = 0; i < n; i++){

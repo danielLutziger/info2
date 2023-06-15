@@ -28,6 +28,7 @@ void heapify(int A[], int n, int s, int dimensions){
 
 void buildMaxHeap(int A[], int n, int d) {
     for(int i = (n-1)/d; i >= 0; i--){
+
         heapify(A, i, n, d);
     }
 }
@@ -52,7 +53,7 @@ void printHeap(int A[], int n) {
 
 int main() {
     int A[] = {6, 4, 3, 9, 5, 10, 15, 19, 11, 7, 8, 13};
-    heapSort(A, 12, 3);
+    heapSort(A, 12, 2);
     printHeap(A, 12);
     return 0;
 }
