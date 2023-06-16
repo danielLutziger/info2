@@ -55,6 +55,10 @@ void dequeue(){
     free(freeQueueElement);
 }
 
+int isEmpty(){
+    return head->next == NULL ? 0 : 1;
+}
+
 int main(){
     // sentinel element
     head = malloc(sizeof(struct node));
