@@ -893,7 +893,61 @@ int Partition(int A[], int i, int n){
 ````
 
 # Data structures
-## 
+## Linked lists
+- insertion at beginning: O(1)
+- insertion at end: O(n)
+- isEmpty: O(1)
+- delete: O(n)
+- print: O(n)
+> there can at most be one linked list (since you have to work with root) => ADT as solution
+
+
+|                            Linked List                            |                  Binary Tree                  |
+|:-----------------------------------------------------------------:|:---------------------------------------------:|
+|                   Pointing to the next element                    |       Pointing to children (2 elements)       |
+|                    Sort order does not matter                     |        children have to be < than root        |
+|                       linear data structure                       |          hierarchical data structure          |
+|              sequential traversal from head to tail               |   in-order, pre-order, post-order traversal   |
+| Insertion: traversing form beginning to n element, time consuming | balanced tree more efficient due to structure |
+| Searching: traversing form beginning to n element, time consuming | balanced tree more efficient due to structure |
+
+## Stacks
+- LIFO, last in first out
+  - insert: LIFO
+  - delete: LIFO, item which as been added last is deleted first
+- operations
+  - push: new element (insert)
+    - at beginning of linked list
+    - at end of array
+  - pop: latest element (delete)
+    - root of linked list
+    - last element of array
+## Queues
+- FIFO, first in first out
+  - insert: FIFO
+  - delete: FIFO, item which has been the longest in the queue is deleted first
+- operations
+  - enqueue: new element (insert)
+    - at end of an array
+    - at end of a linked list
+  - dequeue: oldest element (delete)
+    - fist element of array, shift all values in array
+    - first element of linked list
+## Ordered Lists
+- linked lists where items are ordered based on a key
+
+## Handle changing pointers
+- using a sentinel: dummy element in front of the list
+- using another pointer: pointer to a pointer so that the root root does not change
+- modify functions: functions which modify the root shall return the altered object
+
+## Circular property
+- last node is circularly connected with first node
+  - one of the nodes is called head, but there is no actual head
+- a circular object cannot be NULL!
+  - use a sentinel or a pointer head node
+    - head node will point on itself => prove that it is circular
+
 ### Strength
 ### Limitations
 ## 
