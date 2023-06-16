@@ -7,48 +7,38 @@
 struct node {
     int value;
     struct node* next;
-    struct node* prev;
 };
-struct node* header;
+
+struct node* sentinel = NULL;
+
 void push(int i){
-    if(header->next == NULL){
-        struct node* newNode = malloc(sizeof (struct node));
-        newNode->next = newNode;
-        newNode->prev = newNode;
-        newNode->value = i;
-        header->next = newNode;
-    } else {
-        struct node* rootNode = header->next;
-        struct node* newNode = malloc(sizeof (struct node));
-        newNode->value = i;
-        newNode->next = rootNode;
-        newNode->prev = rootNode->prev;
-        rootNode->prev->next = newNode;
-        rootNode->prev = newNode;
+    struct node* newNode = malloc(sizeof(struct node));
+    newNode->value = i;
+    if(sentinel->next == NULL){
+        newNode->next = NULL;
+        sentinel->next = newNode;
+    } else{
+        newNode->next = sentinel->next;
+        sentinel->next = newNode;
     }
 }
 
 int pop(){
-    if(header->next == NULL){
-        printf("Stack underflow\n");
+    if(sentinel->next == NULL){
+        printf("stack underflow\n");
         return -1;
-    } else {
-        struct node* rootNode = header->next;
-        struct node* freeNode = rootNode->prev;
-        if(rootNode == freeNode) header->next = NULL;
-        rootNode->prev = freeNode->prev;
-        freeNode->prev->next = rootNode;
-        int value = freeNode-> value;
-        free(freeNode);
-        return value;
     }
+    struct node* todel = sentinel->next;
+    sentinel->next = todel->next;
+    int value = todel->value;
+    free(todel);
+    return value;
 }
 
 int main(){
     // sentinel element
-    header = malloc(sizeof (struct node));
-    header->next = NULL;
-    header->prev = NULL;
+    sentinel = malloc(sizeof (struct node));
+    sentinel->next = NULL;
     push(35);
     push(25);
     push(15);
