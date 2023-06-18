@@ -948,9 +948,132 @@ int Partition(int A[], int i, int n){
   - use a sentinel or a pointer head node
     - head node will point on itself => prove that it is circular
 
+## Binary Tree
+- x = node of tree
+- left subtree <= x
+- right subtree >= x
+- complexity:
+  - search: worst case O(h) (h = height)
+    - h can represent all n (if the tree looks like a list, else it is log(n) in best case)
+  - find minimum: O(h) (furthest element to the left)
+  - find max: O(h) (furthest element to the right)
+  - insert: 
+  - delete: 
+  - traversal: O(n)
+### Inorder Tree Walk
+- visit left subtree before right one
+- O(n)
+````c
+InorerTreeWalk(p):
+    if(p!=NULL){
+        InorderTreeWalk(p->left)
+        VisitNode(p)
+        InorderTreeWalk(p->right)
+    }
+````
+### Postorder Tree Walk
+- visit node after its subtrees
+````c
+InorerTreeWalk(p):
+    if(p!=NULL){
+        InorderTreeWalk(p->left)
+        InorderTreeWalk(p->right)
+        VisitNode(p)
+    }
+````
+### Preorder Tree Walk
+- visit node before its subtrees
+````c
+InorerTreeWalk(p):
+    if(p!=NULL){
+        VisitNode(p)
+        InorderTreeWalk(p->left)
+        InorderTreeWalk(p->right)
+    }
+````
+
 ### Strength
 ### Limitations
 ## 
 ### Strength
 ### Limitations
-...
+
+
+# Quick Overview
+
+| Data Structure | Action | Time Complexity | Properties |
+| --- | --- | --- | --- |
+| **Stack** | Push (insert) | O(1) | LIFO, linear, dynamic size |
+|  | Pop (delete) | O(1) |  |
+|  | isEmpty() | O(1) |  |
+|  | Traversal | O(n) |  |
+| **Queue** | Enqueue (insert) | O(1) | FIFO, linear, dynamic size |
+|  | Dequeue (delete) | O(1) |  |
+|  | isEmpty() | O(1) |  |
+|  | Traversal | O(n) |  |
+| **Linked List** | Insert | O(1) | Linear, dynamic size, nodes connected through pointers |
+|  | Delete | O(1) |  |
+|  | Search | O(n) |  |
+|  | Traversal | O(n) |  |
+| **Binary Tree** | Insert | O(n) | Hierarchical, nodes have parent-child relationship, each node has at most two children |
+|  | Delete | O(n) |  |
+|  | Search | O(n) |  |
+|  | Traversal | O(n) |  |
+| **Binary Search Tree** | Insert | O(log n) | Like a binary tree, but left child is less than parent and right child is greater than parent |
+|  | Delete | O(log n) |  |
+|  | Search | O(log n) |  |
+|  | Traversal | O(n) |  |
+| **Heap** | Insert | O(log n) | Binary tree with heap property, complete or almost complete |
+|  | Delete | O(log n) |  |
+|  | Search | O(n) |  |
+|  | Traversal | O(n) |  |
+| **Max Heap** | Insert | O(log n) | Like Heap, but parent node is greater than or equal to its children |
+|  | Delete | O(log n) |  |
+|  | Search | O(n) |  |
+|  | Traversal | O(n) |  |
+| **Min Heap** | Insert | O(log n) | Like Heap, but parent node is less than or equal to its children |
+|  | Delete | O(log n) |  |
+|  | Search | O(n) |  |
+|  | Traversal | O(n) |  |
+| **Red-Black Tree** | Insert | O(log n) | Self-balancing BST, nodes have an extra bit for denoting color |
+|  | Delete | O(log n) |  |
+|  | Search | O(log n) |  |
+|  | Traversal | O(n) |  |
+| **Graph** | Add Edge | O(1) | Nodes with pairwise connections, connections can be weighted/unweighted, graph can be directed/undirected |
+|  | Remove Edge | O(1) or O(n) |  |
+|  | Add Vertex | O(1) |  |
+|  | Remove Vertex | O(v + e) |  |
+|  | DFS Traversal | O(v + e) |  |
+|  | BFS Traversal | O(v + e) |  |
+
+
+
+
+| Criteria | Min Heap | Max Heap | Binary Search Tree (BST) |
+| --- | --- | --- | --- |
+| **Order Property** | Parent node is less than or equal to its children. | Parent node is greater than or equal to its children. | Left child is less than parent and right child is greater than parent. |
+| **Shape Property** | Complete binary tree. All levels are fully filled except possibly for the last level, which is filled from left to right. | Same as Min Heap. | Not necessarily a complete binary tree. |
+| **Insertion** | O(log n) | O(log n) | O(log n) in average case, O(n) in worst case |
+| **Deletion (of min/max)** | O(log n) | O(log n) | O(log n) in average case, O(n) in worst case |
+| **Search (for min/max)** | O(1) | O(1) | O(log n) in average case, O(n) in worst case |
+| **Search (for arbitrary element)** | O(n) | O(n) | O(log n) in average case, O(n) in worst case |
+| **Suitability** | Suitable when you need quick access to the smallest element. | Suitable when you need quick access to the largest element. | Suitable for search operations and when you need to keep elements in order. |
+
+Notes:
+1. Time complexities for BST operations assume a balanced tree. In a skewed BST, these operations can degrade to O(n).
+2. Heap does not maintain any specific order among nodes on any single level or among the siblings while BST does.
+
+
+| Sorting Algorithm | Best Case | Average Case | Worst Case | Space Complexity | Stability |
+| --- | --- | --- | --- | --- | --- |
+| **Heapsort** | O(n log n) | O(n log n) | O(n log n) | O(1) | No |
+| **Quicksort** | O(n log n) | O(n log n) | O(n^2) | O(log n) | No |
+| **Selection Sort** | O(n^2) | O(n^2) | O(n^2) | O(1) | No |
+| **Insertion Sort** | O(n) | O(n^2) | O(n^2) | O(1) | Yes |
+| **Bubble Sort** | O(n) | O(n^2) | O(n^2) | O(1) | Yes |
+| **Merge Sort** | O(n log n) | O(n log n) | O(n log n) | O(n) | Yes |
+
+Notes:
+1. Best, average, and worst case scenarios refer to the performance of the sorting algorithm based on the input.
+2. Space complexity refers to the maximum extra space required by the algorithm.
+3. Stability refers to the behavior of the algorithm when two elements have the same key. If the order of equal elements remains the same before and after sorting, the algorithm is stable.
