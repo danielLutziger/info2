@@ -147,11 +147,11 @@ void printTree(struct TreeNode **root) {
     }
 }
 
-int lrlp(struct TreeNode* root){
+int largestPathToRoot(struct TreeNode* root){
     if(root == NULL){
         return 0;
     }
-    return lrlp(root->left) > + lrlp(root->right) ? root->value + lrlp(root->left) : root->value + lrlp(root->right);
+    return largestPathToRoot(root->left) > + largestPathToRoot(root->right) ? root->value + largestPathToRoot(root->left) : root->value + largestPathToRoot(root->right);
 }
 
 int main() {
@@ -191,6 +191,6 @@ int main() {
     insert(&root, 9);
     insert(&root, 13);
 
-    printf("%d", lrlp(root));
+    printf("%d", largestPathToRoot(root));
     return 0;
 }
