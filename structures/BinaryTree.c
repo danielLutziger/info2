@@ -71,45 +71,57 @@ struct BinaryTree *insertTree(struct BinaryTree *tree, struct BinaryTree *node) 
     return tree;
 }
 
-struct BinaryTree *delete(struct BinaryTree *tree, struct BinaryTree *deleteNode) {
-
-    struct BinaryTree *node = tree;
+void delete(struct BinaryTree *root, struct BinaryTree *deleteNode) {
     struct BinaryTree *prevNode = NULL;
+    struct BinaryTree *current = root;
 
-    while (node != NULL) {
-        prevNode = node;
-        if (node->value < deleteNode->value) node = node->right;
-        else node = node->left;
+    // Find the node to be deleted and its parent
+    while (current != NULL && current->value != deleteNode->value) {
+        prevNode = current;
+        if (deleteNode->value < current->value)
+            current = current->left;
+        else
+            current = current->right;
     }
 
-    // case 1 & 2, tree has less than 2 children
-    if (node->right == NULL) {
-        if (prevNode == NULL) tree = node->left;
-        else if (prevNode->left == node) prevNode->left = node->left;
-        else node->right = prevNode->left;
-    } else if (node->left == NULL) {
-        if(prevNode == NULL) tree = node->right;
-        else if(prevNode->left == node) prevNode->left = node->right;
-        else prevNode->right = node->right;
-    } else {
-        // case 3, tree has 2 children
-        struct BinaryTree *q = deleteNode->left;
-        struct BinaryTree *p = q;
-        // find successor
-        while(p->right != NULL){ q = p; p=p->right;}
+    if (current == NULL) {
+        printf("Key not found in the tree.\n");
+        return;
+    }
 
-        if(prevNode == NULL) tree = p;
-        else if(prevNode->left == node) node->left = p;
-        else node->right = p;
-
-        p->right = node->right;
-        if(q != p){
-            q->right = p->left;
-            p->left = node->left;
+    // Node to be deleted has two children
+    if (current->left != NULL && current->right != NULL) {
+        // Find inorder predecessor and its parent
+        struct BinaryTree *predecessor = current->left;
+        struct BinaryTree *prevPred = current;
+        while (predecessor->right != NULL) {
+            prevPred = predecessor;
+            predecessor = predecessor->right;
         }
-    }
 
-    return tree;
+        // Replace the value of the node to be deleted with the value of the inorder predecessor
+        current->value = predecessor->value;
+
+        // Now delete the inorder predecessor
+        if (prevPred->right == predecessor) prevPred->right = predecessor->left;
+        else prevPred->left = predecessor->left;
+
+        free(predecessor);
+    } else {
+        struct BinaryTree *newNode;
+
+        // Node to be deleted has only right child
+        if (current->left == NULL) newNode = current->right;
+            // Node to be deleted has only left child
+        else if (current->right == NULL) newNode = current->left;
+
+        // Node to be deleted is a leaf node
+        if (prevNode == NULL) root = newNode;
+        else if (current == prevNode->left) prevNode->left = newNode;
+        else prevNode->right = newNode;
+
+        free(current);
+    }
 }
 
 int determineHeight(struct BinaryTree *tree) {
@@ -283,4 +295,8 @@ int main() {
     printf("Min of Tree: %d\n", findMin(tree));
     printf("Max of Tree: %d\n", findMax(tree));
 
+    delete(tree, search(tree, 8));
+    delete(tree, search(tree, 10));
+    delete(tree, search(tree, 13));
+    inOrderTraversal(tree);
 }
