@@ -147,6 +147,13 @@ void printTree(struct TreeNode **root) {
     }
 }
 
+int lrlp(struct TreeNode* root){
+    if(root == NULL){
+        return 0;
+    }
+    return lrlp(root->left) > + lrlp(root->right) ? root->value + lrlp(root->left) : root->value + lrlp(root->right);
+}
+
 int main() {
     struct TreeNode *root = NULL;
 
@@ -165,5 +172,25 @@ int main() {
     delete(&root, 2);
     traverseTree(&root);
     printTree(&root);
+
+    // delete complete tree
+    delete(&root, 2);
+    delete(&root, 3);
+    delete(&root, 8);
+    delete(&root, 6);
+    delete(&root, 7);
+    delete(&root, 9);
+    delete(&root, 1);
+
+    insert(&root, 7);
+    insert(&root, 5);
+    insert(&root, 2);
+    insert(&root, 15);
+    insert(&root, 21);
+    insert(&root, 10);
+    insert(&root, 9);
+    insert(&root, 13);
+
+    printf("%d", lrlp(root));
     return 0;
 }
