@@ -991,14 +991,128 @@ InorerTreeWalk(p):
         InorderTreeWalk(p->right)
     }
 ````
+## Red Black Tree
+> Balanced binary tree. A binary tree has worst case O(n) runtime. The balanced search tree ensures O(log(n))
+- Every node is either red or black
+- root is black
+- leaf is black
+- for a red node, children are black
+- each path contains the same number of black nodes
 
-### Strength
-### Limitations
-## 
-### Strength
-### Limitations
+- blackHeight(x): number of black nodes from any path
+  -  ▶ n internal nodes
+  - ▶ h - height of tree
+  - ▶ bh - black height
+  - ▶ h/2 ≤ bh
+  - ▶ 2^bh − 1 ≤ n
+  - ▶ 2^h/2 ≤ n + 1
+  - ▶ h/2 ≤ lg(n + 1)
+  - ▶ h ≤ 2 lg(n + 1)
+> Operations take O(h) time (search, insert, delete) and the height is bound to 2lg(n+1)
 
+<i>
+<ul>
+<li>root property: the root is black</li>
+<li>external property: every external node is black</li>
+<li>red property: the children of a red node are BLACK</li>
+<li>depth property: all external nodes have the same black depth</li>
+</ul>
+</i>
 
+### RB Rotations
+- alters the tree structure 
+- goal: decreaes the height
+- Complexity O(1)
+````c
+Left Rotataion:
+--------------------------
+                
+                  5 -> t
+                /  \
+               2    10 -> c
+                    / \
+                   8   12
+                 /  \
+                6    9
+LeftRotate(5);
+
+                 10
+                /  \
+               5    12
+              / \    
+             2   8   
+                /  \
+               6    9
+
+RightRotate(10);
+                 5 
+                /  \
+               2    10 
+                    / \
+                   8   12
+                 /  \
+                6    9
+````
+### RB Insertions
+- identify: current, parent, grandfather, uncle
+- Case 0: parent of inserted node is black
+- Case 1: parent and uncle of inserted node are red
+  - -> change parent color to black, uncle color to black and grandfather to red
+- Case 2: inserted is right child: parent is red, grandfather and uncle are black
+  - -> left rotate on parent, follow case 3
+- Case 3: parent is red, inserted is red (left child), gradfather black and uncle black
+  - -> right rotate on grandfather, set parent black and grandfather red
+### RB Search
+
+### RBT Deletions
+- identify: current, parent, sibling, uncle
+- standard BST delete with special cases (ASSUMPTION CURRENT IS LEFT NODE)
+- Case 1: The sibling is red. 
+- Case 2: The sibling is black and both of sibling's children are black. 
+- Case 3: The sibling is black, sibling's left child is red, sibling's right child is black. 
+- Case 4: The sibling is black, and sibling's right child is red.
+
+````c
+Case 1:
+       B               R
+      / \             / \
+    N    r    -->   B     B
+        / \        / \   / \
+       b   b      N   b b   N
+
+       
+Case 2:
+         B             B           (New root is black)
+        / \           / \
+      N     B  -->  R     r
+           / \           / \
+          N   N         N   N
+
+          
+Case 3:
+        B            B
+       / \          / \
+     N    B  -->  N    r
+         / \          / \
+        r   N        B   N
+       / \          / \
+      N   N        N   N
+
+     
+Case 4:
+      B             B
+     / \           / \
+   N    B   -->   r   B
+       / \       / \   \
+      N   r     N   B   N
+      
+      Parent (any color)
+       /     \
+      X    Sibling (Black)
+          /   \
+        Any  (Red)
+
+````
 # Quick Overview
 
 | Data Structure | Action | Time Complexity | Properties |
@@ -1077,3 +1191,16 @@ Notes:
 1. Best, average, and worst case scenarios refer to the performance of the sorting algorithm based on the input.
 2. Space complexity refers to the maximum extra space required by the algorithm.
 3. Stability refers to the behavior of the algorithm when two elements have the same key. If the order of equal elements remains the same before and after sorting, the algorithm is stable.
+
+| Data Structure | Action | Time Complexity | Properties | Use Case |
+| --- | --- | --- | --- | --- |
+| **Stack** | Push (insert) | O(1) | LIFO, linear, dynamic size | Useful in algorithmic situations like depth-first search, where you want to explore one branch of a tree/graph fully before moving onto the next one. |
+| **Queue** | Enqueue (insert) | O(1) | FIFO, linear, dynamic size | Useful in situations where you want things to happen in the order they were inserted, such as task scheduling and in breadth-first search. |
+| **Linked List** | Insert | O(1) | Linear, dynamic size, nodes connected through pointers | Useful when you need constant-time insertions/deletions from the list (such as in real-time computing where time predictability is absolutely critical). |
+| **Binary Tree** | Insert | O(n) | Hierarchical, nodes have parent-child relationship, each node has at most two children | Binary trees are used when rapid searching of sorted data is important, such as in database indexing. |
+| **Binary Search Tree** | Insert | O(log n) | Like a binary tree, but left child is less than parent and right child is greater than parent | Used in many search applications where data is constantly entering/exiting, such as map and set objects in many languages' libraries. |
+| **Heap** | Insert | O(log n) | Binary tree with heap property, complete or almost complete | Used in efficient implementations of priority queues and in sorting algorithms such as heapsort. |
+| **Max Heap** | Insert | O(log n) | Like Heap, but parent node is greater than or equal to its children | Used in algorithms that need to quickly find the maximum element, such as in scheduling processes in the operating system. |
+| **Min Heap** | Insert | O(log n) | Like Heap, but parent node is less than or equal to its children | Used in algorithms that need to quickly find the minimum element, such as in implementing Dijkstra's algorithm. |
+| **Red-Black Tree** | Insert | O(log n) | Self-balancing BST, nodes have an extra bit for denoting color | Used in programming languages libraries, like Java's TreeMap and TreeSet, to maintain a balanced tree structure after many insertions and deletions. |
+| **Graph** | Add Edge | O(1) | Nodes with pairwise connections, connections can be weighted/unweighted, graph can be directed/undirected | Used to model relationships between pairs, such as a network of web pages, or a social network. |
