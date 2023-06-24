@@ -1113,6 +1113,163 @@ Case 4:
         Any  (Red)
 
 ````
+# Dynamic Programming
+## Matrix chain multiplication
+````c
+    A    *   B       =       C
+ |--  --| |--  --|        |--  --|
+ | xxxx | |x     |        |      | 
+ |      | |x     |        |      | 
+ |--  --| |--  --|        |--  --|
+ 
+ A = 5x4
+ B = 4x3
+   => A*B is possible bc A has 4 columns and B 4 rows 
+           => C = 5x3 = 15
+           => multiply first row with first column (A01,A02,A03,A04)x(B01,B11,B21,B31)
+           => required calculations: 5x3x4 (4 = number of multiplications for every cell in C) = 60
+   => B*A is NOT possible (but this is not possible)
+````
+Matrix chain Multiplication
+
+````c
+A1 = (5x4);
+A2 = (4x6);
+A3 = (6x2);
+A4 = (2x7);
+
+m[1,1] = 0;
+m[2,2] = 0;
+m[3,3] = 0;
+m[4,4] = 0;
+
+````
+|   | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 1 | 0 |   |   |   |
+| 2 |   | 0 |   |   |
+| 3 |   |   | 0 |   |
+| 4 |   |   |   | 0 |
+
+````c
+m[1,2] = A1 * A2;
+m[1,2] = (5x4) * (4x6) = 5 * 6 * 4 = 120;
+
+m[2,3] = A2 * A3;
+m[2,3] = (4x6) * (6x2) = 4 * 2 * 6 = 48;
+
+m[3,4] = A3 * A4;
+m[3,4] = (6x2) * (2x7) = 6 * 7 * 2 = 84;
+
+=> All possible pairs
+````
+|   | 1 | 2 | 3  | 4  |
+|---|---|---|----|----|
+| 1 | 0 | 120 |    |    |
+| 2 |   | 0 | 48 |    |
+| 3 |   |   | 0  | 84 |
+| 4 |   |   |    | 0  |
+
+|   | 1 | 2 | 3 | 4 |
+|---|--|---|--|--|
+| 1 |  | 1 |  |  |
+| 2 |  |   | 2 |  |
+| 3 |  |   |  | 3 |
+| 4 |  |   |  |  |
+
+
+````c
+m[1,3] = (A1 * A2) * A3;
+m[1,3] = A1 * (A2 * A3);
+m[1,3] = [(5x4) * (4x6)] * (6x2) = m[1,2] + m[3,3] + 5 * 6 * 2 = 120 + 0 + 60 = 180;
+m[1,3] = (5x4) * [(4x6) * (6x2)] = m[1,1] + m[2,3] + 5 * 4 * 2 = 0 + 48 + 40 = 88;
+=> take minimum;
+
+m[2,4] = A2 * (A3 * A4);
+m[2,4] = (A2 * A3) * A4;
+m[2,4] = (4x6) * [(6x2) * (2x7)] = m[2,2] + m[3,4] + 4 * 6 * 7 = 0 + 84 + 168 = 252;
+m[2,4] = [(4x6) * (6x2)] * (2x7) = m[2,3] + m[4,4] + 4 * 2 * 7 = 48 + 0 + 56 = 104;
+
+        
+=> All possible pairs
+````
+|   | 1 | 2 | 3  | 4   |
+|---|---|---|----|-----|
+| 1 | 0 | 120 | 88 |     |
+| 2 |   | 0 | 48 | 104 |
+| 3 |   |   | 0  | 84  |
+| 4 |   |   |    | 0   |
+
+|   | 1 | 2 | 3 | 4 |
+|---|--|---|---|--|
+| 1 |  | 1 | 1 |  |
+| 2 |  |   | 2 | 3 |
+| 3 |  |   |   | 3 |
+| 4 |  |   |   |  |
+
+````c       
+              / m[1,1] + m[2,4] + 5 * 4 * 7,
+                  0        104      140
+m[1,4] = min {  m[1,2] + m[3,4] + 5 * 6 * 7,
+                  120       84        210
+              \ m[1,3] + m[4,4] + 5 * 2 * 7,
+                   88       0          70
+               
+=> All possible pairs
+````
+|   | 1 | 2 | 3  | 4   |
+|---|---|---|----|-----|
+| 1 | 0 | 120 | 88 | 158 |
+| 2 |   | 0 | 48 | 104 |
+| 3 |   |   | 0  | 84  |
+| 4 |   |   |    | 0   |
+
+Table for the key on which the value in the prev tablewas achieved (3 = m[1,3])
+
+|   | 1 | 2 | 3 | 4 |
+|---|--|---|---|---|
+| 1 |  | 1 | 1 | 3 |
+| 2 |  |   | 2 | 3 |
+| 3 |  |   |   | 3 |
+| 4 |  |   |   |   |
+
+> 3 is equal to the split (A1 * A2 * A3) * A4
+> 
+> And for A1, A3  this is the most efficient set: (A1 * (A2 * A3)) * A4
+
+> m[i,j] = min{ m[i,k] + m[k+1, j] + di-1 * dk * dj
+
+- (k = a random value e.g. m[1,4] = m[1,1] + m[2,4], thus k is a placeholder for the split)
+- dimensions: 4 matrix => 5 dimensions
+- > di-1 = dimension 0 = in case of i = 1 => d0 = 5 from (5x4) then k = 2 => m[1,1] * m[2,4] => 5 * 4 * 7 whereas 7 is dj (dimension j)
+
+> time complexity: O(n^3)
+> 
+> Time complexity for getting the value is n^2 and for getting the min is n => n^3
+
+### Inorder traversal on a matrix
+with the s helper table (which keeps track of the different k's) we can create the inorder traversal
+
+
+|   | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|
+| 1 | 0 | 1 | 1 | 3 |
+| 2 |   | 0 | 2 | 3 |
+| 3 |   |   | 0 | 3 |
+| 4 |   |   |   | 0 |
+
+````c
+Starting off as a tree:
+                    
+                x               k = 3
+              /   \
+            1-3   4-4           k = 2
+           /   \
+          1-1  2-3              k = 1
+              /   \
+            2-2   3-3
+````
+
 # Quick Overview
 
 | Data Structure | Action | Time Complexity | Properties |

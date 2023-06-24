@@ -203,7 +203,7 @@ int main() {
         matrix[i] = (int *) malloc(n * sizeof(int));
     }
 
-    // init matrix
+    // init dynamic_programming
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             matrix[i][j] = rand() % 10 + 1;
