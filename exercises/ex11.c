@@ -1,8 +1,6 @@
 //
 // Created by danie on 24.06.2023.
 //
-
-
 #include <stdio.h>
 int longestPath(int x, int y, int matrix[x][y]){
 
