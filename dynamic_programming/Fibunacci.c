@@ -34,9 +34,17 @@ int fib3(int n){
     }
     return s;
 }
+int A[20] = {0};
+int fibMemo(int n){
+    if(n < 2) return n;
+    if(A[n] != 0) return A[n];
+    else return fibMemo(n-1) + fibMemo(n-2);
+}
+
 #include "stdio.h"
 int main(){
     printf("%d", fib1(15));
     printf("%d", fib2(15));
     printf("%d", fib3(15));
+    printf("%d", fibMemo(15));
 }
