@@ -1349,15 +1349,15 @@ Notes:
 2. Space complexity refers to the maximum extra space required by the algorithm.
 3. Stability refers to the behavior of the algorithm when two elements have the same key. If the order of equal elements remains the same before and after sorting, the algorithm is stable.
 
-| Data Structure | Action | Time Complexity | Properties | Use Case |
-| --- | --- | --- | --- | --- |
-| **Stack** | Push (insert) | O(1) | LIFO, linear, dynamic size | Useful in algorithmic situations like depth-first search, where you want to explore one branch of a tree/graph fully before moving onto the next one. |
-| **Queue** | Enqueue (insert) | O(1) | FIFO, linear, dynamic size | Useful in situations where you want things to happen in the order they were inserted, such as task scheduling and in breadth-first search. |
-| **Linked List** | Insert | O(1) | Linear, dynamic size, nodes connected through pointers | Useful when you need constant-time insertions/deletions from the list (such as in real-time computing where time predictability is absolutely critical). |
-| **Binary Tree** | Insert | O(n) | Hierarchical, nodes have parent-child relationship, each node has at most two children | Binary trees are used when rapid searching of sorted data is important, such as in database indexing. |
-| **Binary Search Tree** | Insert | O(log n) | Like a binary tree, but left child is less than parent and right child is greater than parent | Used in many search applications where data is constantly entering/exiting, such as map and set objects in many languages' libraries. |
-| **Heap** | Insert | O(log n) | Binary tree with heap property, complete or almost complete | Used in efficient implementations of priority queues and in sorting algorithms such as heapsort. |
-| **Max Heap** | Insert | O(log n) | Like Heap, but parent node is greater than or equal to its children | Used in algorithms that need to quickly find the maximum element, such as in scheduling processes in the operating system. |
-| **Min Heap** | Insert | O(log n) | Like Heap, but parent node is less than or equal to its children | Used in algorithms that need to quickly find the minimum element, such as in implementing Dijkstra's algorithm. |
-| **Red-Black Tree** | Insert | O(log n) | Self-balancing BST, nodes have an extra bit for denoting color | Used in programming languages libraries, like Java's TreeMap and TreeSet, to maintain a balanced tree structure after many insertions and deletions. |
-| **Graph** | Add Edge | O(1) | Nodes with pairwise connections, connections can be weighted/unweighted, graph can be directed/undirected | Used to model relationships between pairs, such as a network of web pages, or a social network. |
+| Data Structure | Action | Time Complexity | Deletion | Search | Traversal | Properties | Use Case |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **Stack** | Push (insert) | O(1) | O(1) | O(n) | O(n) | LIFO, linear, dynamic size | Useful in algorithmic situations like depth-first search, where you want to explore one branch of a tree/graph fully before moving onto the next one. |
+| **Queue** | Enqueue (insert) | O(1) | O(1) | O(n) | O(n) | FIFO, linear, dynamic size | Useful in situations where you want things to happen in the order they were inserted, such as task scheduling and in breadth-first search. |
+| **Linked List** | Insert | O(1) | O(1) | O(n) | O(n) | Linear, dynamic size, nodes connected through pointers | Useful when you need constant-time insertions/deletions from the list (such as in real-time computing where time predictability is absolutely critical). |
+| **Binary Tree** | Insert | O(n) | O(n) | O(n) | O(n) | Hierarchical, nodes have parent-child relationship, each node has at most two children | Binary trees are used when rapid searching of sorted data is important, such as in database indexing. |
+| **Binary Search Tree** | Insert | O(log n) | O(log n) | O(log n) | O(n) | Like a binary tree, but left child is less than parent and right child is greater than parent | Used in many search applications where data is constantly entering/exiting, such as map and set objects in many languages' libraries. |
+| **Heap** | Insert | O(log n) | O(log n) | O(n) | O(n) | Binary tree with heap property, complete or almost complete | Used in efficient implementations of priority queues and in sorting algorithms such as heapsort. |
+| **Max Heap** | Insert | O(log n) | O(log n) | O(n) | O(n) | Like Heap, but parent node is greater than or equal to its children | Used in algorithms that need to quickly find the maximum element, such as in scheduling processes in the operating system. |
+| **Min Heap** | Insert | O(log n) | O(log n) | O(n) | O(n) | Like Heap, but parent node is less than or equal to its children | Used in algorithms that need to quickly find the minimum element, such as in implementing Dijkstra's algorithm. |
+| **Red-Black Tree** | Insert | O(log n) | O(log n) | O(log n) | O(n) | Self-balancing BST, nodes have an extra bit for denoting color | Used in programming languages libraries, like Java's TreeMap and TreeSet, to maintain a balanced tree structure after many insertions and deletions. |
+| **Graph** | Add Edge | O(1) | O(1) | O(n+e) | O(n+e) | Nodes with pairwise connections, connections can be weighted/unweighted, graph can be directed/undirected | Used to model relationships between pairs, such as a network of web pages, or a social network. |
