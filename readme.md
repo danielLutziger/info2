@@ -1,3 +1,5 @@
+Lol guys I passed. So this stuff here is actually useful. 
+
 # Table of content
 ## Algorithms
 - Linear search
